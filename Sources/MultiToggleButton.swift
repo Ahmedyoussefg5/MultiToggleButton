@@ -13,7 +13,7 @@ public typealias ToggleButton = MultiToggleButton // compatibility with old vers
 open class MultiToggleButton: UIButton
 {
     /// use only this init, it's 'convenience' only to avoid overriding required inits
-    public convenience init(images: [UIImage?], states: [String], colors: [UIColor?] = [], backgroundColors: [UIColor?] = [], action: ((_ sender: MultiToggleButton) -> ())? = nil) {
+    public convenience init(images: [UIImage?], states: [NSMutableAttributedString], colors: [UIColor?] = [], backgroundColors: [UIColor?] = [], action: ((_ sender: MultiToggleButton) -> ())? = nil) {
         self.init(frame: CGRect.zero)
         
         if let image = images.first {
@@ -31,7 +31,7 @@ open class MultiToggleButton: UIButton
         setupCurrentState()
     }
     
-    public convenience init(image: UIImage?, states: [String], colors: [UIColor?] = [], backgroundColors: [UIColor?] = [], action: ((_ sender: MultiToggleButton) -> ())? = nil) {
+    public convenience init(image: UIImage?, states: [NSMutableAttributedString], colors: [UIColor?] = [], backgroundColors: [UIColor?] = [], action: ((_ sender: MultiToggleButton) -> ())? = nil) {
         self.init(images: [image], states: states, colors: colors, backgroundColors: backgroundColors, action: action)
     }
     
@@ -46,7 +46,7 @@ open class MultiToggleButton: UIButton
     open var colors: [UIColor?] = []                { didSet {setupCurrentState()} }
     open var backgroundColors: [UIColor?] = []      { didSet {setupCurrentState()} }
     open var images: [UIImage?] = []                { didSet {setupCurrentState()} }
-    @objc open var states: [String] = [] {
+    @objc open var states: [NSMutableAttributedString] = [] {
         didSet {
             currentStateIndex %= states.count
             setupCurrentState()
@@ -70,7 +70,7 @@ open class MultiToggleButton: UIButton
     
     private func setupCurrentState() {
         let currentTitle = states[currentStateIndex]
-        setTitle(currentTitle.isEmpty ? nil : " " + currentTitle, for: UIControlState())
+        setAttributedTitle(currentTitle, for: UIControlState())
         setTitleColor(currentColor ?? tintColor, for: UIControlState())
         backgroundColor = currentBackgroundColor ?? .clear
         setImage(currentToggleImage ?? currentImage, for: UIControlState())
