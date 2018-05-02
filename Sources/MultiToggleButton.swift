@@ -71,6 +71,8 @@ open class MultiToggleButton: UIButton
     private func setupCurrentState() {
         let currentTitle = states[currentStateIndex]
         setAttributedTitle(currentTitle, for: UIControlState())
+        titleLabel?.textAlignment = .left
+        contentHorizontalAlignment = .left
         setTitleColor(currentColor ?? tintColor, for: UIControlState())
         backgroundColor = currentBackgroundColor ?? .clear
         setImage(currentToggleImage ?? currentImage, for: UIControlState())
